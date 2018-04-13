@@ -93,6 +93,7 @@
     <Compile Include="Main_Form.Designer.cs">
       <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="test.cs" />
     <Compile Include="Vue\Integration_Form.cs">
       <SubType>Form</SubType>
     </Compile>

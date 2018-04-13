@@ -100,3 +100,5 @@ namespace Mercure.controleur
         }
     }
 }
+
+//猪不能收集数据
