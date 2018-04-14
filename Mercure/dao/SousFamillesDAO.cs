@@ -21,6 +21,18 @@ namespace Mercure.dao
             return Reader.HasRows;
         }
 
+        //添加一个通过famille找soufamille
+        public bool VerifierSousFamillesParFamille(int Id)
+        {
+            SQLiteConnection ConnectionBD = GererBD.Get_Connection();
+            string Sql = "select * from SousFamilles where SousFamilles.RefFamille= @Id";
+            SQLiteCommand Commande = new SQLiteCommand(Sql, ConnectionBD);
+            Commande.Parameters.AddWithValue("@Id", Id);
+            SQLiteDataReader Reader = Commande.ExecuteReader();
+            return Reader.HasRows;
+        }
+
+
         public List<SousFamilles> GetAll()
         {
             List<SousFamilles> Resultats = new List<SousFamilles>();
