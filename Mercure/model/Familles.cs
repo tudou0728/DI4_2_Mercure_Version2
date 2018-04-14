@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Mercure.Model
 {
-    class Familles
+    public class Familles
     {
         private int Ref_Famille;
         private string Nom;

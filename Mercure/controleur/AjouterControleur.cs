@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Mercure.dao;
 using Mercure.Model;
-using System;
 
 namespace Mercure.controleur
 {

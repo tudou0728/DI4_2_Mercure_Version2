@@ -30,7 +30,7 @@ namespace Mercure.dao
                 Cmd.ExecuteNonQuery();
             }           
         }
-
+     
         public void Supprimer_Article(string Ref_Article)
         {
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();

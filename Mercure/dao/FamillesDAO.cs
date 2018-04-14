@@ -12,6 +12,7 @@ namespace Mercure.dao
 {
     class FamillesDAO
     {
+        private SousFamillesDAO sousFamilleDAO  = new SousFamillesDAO();
         public void Ajouter_Famille(int Ref_Famille, string Nom)
         {
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();
@@ -22,18 +23,24 @@ namespace Mercure.dao
             Commande.Parameters.AddWithValue("@Nom", Nom);
             Commande.ExecuteNonQuery();
         }
-
-        public void Supprimer_Famille(int Ref_Famille)
+        //这里我（A）改成了用名字删
+        public bool Supprimer_Famille(string Nom)
         {
+            bool b = sousFamilleDAO.VerifierSousFamillesParFamille(Rechercher_Famille_Par_Nom(Nom)[0].Ref_Famille_Operation);
+            if(b){
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();
-            string Sql = "delete from Familles where RefFamille = @Ref_Famille";
+            string Sql = "delete from Familles where Nom = @Nom";
             SQLiteCommand Cmd = new SQLiteCommand(Sql, ConnectionBD);
             Cmd.CommandText = Sql;
-            Cmd.Parameters.AddWithValue("@Ref_Famille", Ref_Famille);
+            Cmd.Parameters.AddWithValue("@Nom", Nom);
             Cmd.ExecuteNonQuery();
+            return true;
+            }else{
+            return false;
+            }
         }
 
-        public void Modifier_Famille(int Ref_Famille, string Nom)
+        public bool Modifier_Famille(int Ref_Famille, string Nom)
         {
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();
             string Sql = "update Familles set Nom = @Nom where RefFamille = Ref_Famille";
@@ -41,6 +48,7 @@ namespace Mercure.dao
             Cmd.CommandText = Sql;
             Cmd.Parameters.AddWithValue("@Ref_Famille", Ref_Famille);
             Cmd.ExecuteNonQuery();
+            return true;
         }
 
         public List<Familles> Rechercher_Familles(int Ref_Famille)
