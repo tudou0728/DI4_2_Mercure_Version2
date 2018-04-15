@@ -219,11 +219,6 @@ namespace Mercure
                 ModifierArticleForm.ShowDialog();
             }
         }
-
-        private void Main_Form_Load(object sender, EventArgs e)
-        {
-
-        }
   
     }
 

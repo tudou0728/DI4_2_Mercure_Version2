@@ -21,9 +21,9 @@ namespace Mercure.Vue
     {
 
 
-        List<Familles> listFamilles = new List<Familles>();
+        List<Familles> ListFamille = new List<Familles>();
 
-        FamillesDAO familleDAO = new FamillesDAO();
+        FamillesDAO FamilleDAO = new FamillesDAO();
 
         private ListViewColumnSort Sorter = new ListViewColumnSort();
 
@@ -31,20 +31,19 @@ namespace Mercure.Vue
         public Familles_Form()
         {
             InitializeComponent();
-            update_ListView_Famille();
+            Update_ListView_Famille();
         }
-        private void update_ListView_Famille()
+        private void Update_ListView_Famille()
         {
 
-            FamillesDAO faillesDAO = new FamillesDAO();
-            List<Familles> listFamilles = faillesDAO.GetAll();
+            FamillesDAO FamilleDAO = new FamillesDAO();
+            ListFamille = FamilleDAO.GetAll();
             this.ListView_Familles.BeginUpdate();
-
             this.ListView_Familles.Items.Clear();
             int i;
-            for (i = 0; i < listFamilles.Count; i++)
+            for (i = 0; i < ListFamille.Count; i++)
             {
-                this.ListView_Familles.Items.Add(listFamilles[i].Nom_Operation);
+                this.ListView_Familles.Items.Add(ListFamille[i].Nom_Operation);
             }
 
             this.ListView_Familles.EndUpdate();
@@ -89,47 +88,21 @@ namespace Mercure.Vue
             {
                 case Keys.F5:
                     this.ListView_Familles.ListViewItemSorter = null;
-                    this.update_ListView_Famille();
+                    this.Update_ListView_Famille();
                     this.ListView_Familles.Update();
                     this.ListView_Familles.Refresh();
-                    break;
-                case Keys.Back:
-                    if (this.ListView_Familles.SelectedItems.Count > 0)
-                    {
-                        string nomFamille = this.ListView_Familles.SelectedItems[0].Text;
-                        int refFamille = familleDAO.Rechercher_Famille_Par_Nom(nomFamille)[0].Ref_Famille_Operation;
-                        if (MessageBox.Show("Supprimer cette Famille ?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-                        {
-                            if (familleDAO.Supprimer_Famille(nomFamille))
-                            {
-                                this.ListView_Familles.ListViewItemSorter = null;
-                                this.update_ListView_Famille();
-                                this.ListView_Familles.Update();
-                                this.ListView_Familles.Refresh();
-                                this.toolStripStatusLabel1.Text = "Famille supprimée !";
-                            }
-                            else
-                            {
-                                this.ListView_Familles.ListViewItemSorter = null;
-                                this.update_ListView_Famille();
-                                this.ListView_Familles.Update();
-                                this.ListView_Familles.Refresh();
-                                this.toolStripStatusLabel1.Text = "Famille est deja exsite dans la sousFamile !";
-                            }
-                        }
-                    }
                     break;
                 case Keys.Delete:
                     if (this.ListView_Familles.SelectedItems.Count > 0)
                     {
                         string nomFamille = this.ListView_Familles.SelectedItems[0].Text;
-                        int refFamille = familleDAO.Rechercher_Famille_Par_Nom(nomFamille)[0].Ref_Famille_Operation;
+                        int refFamille = FamilleDAO.Rechercher_Famille_Par_Nom(nomFamille)[0].Ref_Famille_Operation;
                         if (MessageBox.Show("Supprimer cette Famille ?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                         {
-                            if (familleDAO.Supprimer_Famille(nomFamille))
+                            if (FamilleDAO.Supprimer_Famille(nomFamille))
                             {
                                 this.ListView_Familles.ListViewItemSorter = null;
-                                this.update_ListView_Famille();
+                                this.Update_ListView_Famille();
                                 this.ListView_Familles.Update();
                                 this.ListView_Familles.Refresh();
                                 this.toolStripStatusLabel1.Text = "Famille supprimée !";
@@ -137,7 +110,7 @@ namespace Mercure.Vue
                             else
                             {
                                 this.ListView_Familles.ListViewItemSorter = null;
-                                this.update_ListView_Famille();
+                                this.Update_ListView_Famille();
                                 this.ListView_Familles.Update();
                                 this.ListView_Familles.Refresh();
                                 this.toolStripStatusLabel1.Text = "Famille est deja exsite dans la sousFamile !";
@@ -148,24 +121,24 @@ namespace Mercure.Vue
                 case Keys.Enter:
                     if (this.ListView_Familles.SelectedItems.Count > 0)
                     {
-                        Familles famille = new Familles();
+                        Familles Famille = new Familles();
 
                         int i;
-                        for (i = 0; i < listFamilles.Count; i++)
+                        for (i = 0; i < ListFamille.Count; i++)
                         {
-                            if (listFamilles[i].Nom_Operation.Equals(this.ListView_Familles.SelectedItems[0].Text))
+                            if (ListFamille[i].Nom_Operation.Equals(this.ListView_Familles.SelectedItems[0].Text))
                             {
-                                famille.Nom_Operation = listFamilles[i].Nom_Operation;
-                                famille.Ref_Famille_Operation = listFamilles[i].Ref_Famille_Operation;
+                                Famille.Nom_Operation = ListFamille[i].Nom_Operation;
+                                Famille.Ref_Famille_Operation = ListFamille[i].Ref_Famille_Operation;
                                 break;
                             }
                         }
-                        Modifier_Familles_Form form = new Modifier_Familles_Form(famille);
-                        form.ShowDialog(this);
+                        Modifier_Familles_Form Form = new Modifier_Familles_Form(Famille);
+                        Form.ShowDialog(this);
 
                         this.toolStripStatusLabel1.Text = "Famille modifiée !";
                         this.ListView_Familles.ListViewItemSorter = null;
-                        this.update_ListView_Famille();
+                        this.Update_ListView_Famille();
                         this.ListView_Familles.Update();
                         this.ListView_Familles.Refresh();
                     }
@@ -177,10 +150,10 @@ namespace Mercure.Vue
 
         private void ajouterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Ajouter_Familles_Form form = new Ajouter_Familles_Form();
-            form.ShowDialog(this);
+            Ajouter_Familles_Form Form = new Ajouter_Familles_Form();
+            Form.ShowDialog(this);
             this.ListView_Familles.ListViewItemSorter = null;
-            this.update_ListView_Famille();
+            this.Update_ListView_Famille();
             this.ListView_Familles.Update();
             this.ListView_Familles.Refresh();
             this.toolStripStatusLabel1.Text = "Famille ajoutée !";
@@ -191,24 +164,24 @@ namespace Mercure.Vue
         {
             if (this.ListView_Familles.SelectedItems.Count > 0)
             {
-                Familles famille = new Familles();
+                Familles Famille = new Familles();
 
                 int i;
-                for (i = 0; i < listFamilles.Count; i++)
+                for (i = 0; i < ListFamille.Count; i++)
                 {
-                    if (listFamilles[i].Nom_Operation.Equals(this.ListView_Familles.SelectedItems[0].Text))
+                    if (ListFamille[i].Nom_Operation.Equals(this.ListView_Familles.SelectedItems[0].Text))
                     {
-                        famille.Nom_Operation = listFamilles[i].Nom_Operation;
-                        famille.Ref_Famille_Operation = (listFamilles[i].Ref_Famille_Operation);
+                        Famille.Nom_Operation = ListFamille[i].Nom_Operation;
+                        Famille.Ref_Famille_Operation = (ListFamille[i].Ref_Famille_Operation);
                         break;
                     }
                 }
 
-                Modifier_Familles_Form form = new Modifier_Familles_Form(famille);
-                form.ShowDialog(this);
+                Modifier_Familles_Form Form = new Modifier_Familles_Form(Famille);
+                Form.ShowDialog(this);
                 this.toolStripStatusLabel1.Text = "Famille modifiée !";
                 this.ListView_Familles.ListViewItemSorter = null;
-                this.update_ListView_Famille();
+                this.Update_ListView_Famille();
                 this.ListView_Familles.Update();
                 this.ListView_Familles.Refresh();
             }
@@ -221,9 +194,9 @@ namespace Mercure.Vue
                 string nomFamille = this.ListView_Familles.SelectedItems[0].Text;
                 if (MessageBox.Show("Supprimer cette Famille ?", "Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    familleDAO.Supprimer_Famille(nomFamille);
+                    FamilleDAO.Supprimer_Famille(nomFamille);
                     this.ListView_Familles.ListViewItemSorter = null;
-                    this.update_ListView_Famille();
+                    this.Update_ListView_Famille();
                     this.ListView_Familles.Update();
                     this.ListView_Familles.Refresh();
                     this.toolStripStatusLabel1.Text = "Famille supprimée !";
@@ -238,30 +211,27 @@ namespace Mercure.Vue
                 Familles famille = new Familles();
 
                 int i;
-                for (i = 0; i < listFamilles.Count; i++)
+                for (i = 0; i < ListFamille.Count; i++)
                 {
-                    if (listFamilles[i].Nom_Operation.Equals(this.ListView_Familles.SelectedItems[0].Text))
+                    if (ListFamille[i].Nom_Operation.Equals(this.ListView_Familles.SelectedItems[0].Text))
                     {
-                        famille.Nom_Operation = (listFamilles[i].Nom_Operation);
-                        famille.Ref_Famille_Operation = (listFamilles[i].Ref_Famille_Operation);
+                        famille.Nom_Operation = (ListFamille[i].Nom_Operation);
+                        famille.Ref_Famille_Operation = (ListFamille[i].Ref_Famille_Operation);
                         break;
                     }
                 }
 
-                Modifier_Familles_Form form = new Modifier_Familles_Form(famille);
-                form.ShowDialog(this);
+                Modifier_Familles_Form Form = new Modifier_Familles_Form(famille);
+                Form.ShowDialog(this);
 
                 this.toolStripStatusLabel1.Text = "Famille modifiée !";
                 this.ListView_Familles.ListViewItemSorter = null;
-                this.update_ListView_Famille();
+                this.Update_ListView_Famille();
                 this.ListView_Familles.Update();
                 this.ListView_Familles.Refresh();
-
             }
         }
     }
-
-
 }
 
 

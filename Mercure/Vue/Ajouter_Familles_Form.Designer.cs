@@ -49,7 +49,6 @@
             this.textBox_Ajouter_Famille.Name = "textBox_Ajouter_Famille";
             this.textBox_Ajouter_Famille.Size = new System.Drawing.Size(170, 21);
             this.textBox_Ajouter_Famille.TabIndex = 11;
-            this.textBox_Ajouter_Famille.TextChanged += new System.EventHandler(this.textBox_Ajouter_Famille_TextChanged);
             // 
             // button_Ajouter
             // 
@@ -60,6 +59,7 @@
             this.button_Ajouter.TabIndex = 12;
             this.button_Ajouter.Text = "Ajouter";
             this.button_Ajouter.UseVisualStyleBackColor = false;
+            this.button_Ajouter.Click += new System.EventHandler(this.button_Ajouter_Click);
             // 
             // button_Annuler
             // 
@@ -69,6 +69,7 @@
             this.button_Annuler.TabIndex = 13;
             this.button_Annuler.Text = "Annuler";
             this.button_Annuler.UseVisualStyleBackColor = true;
+            this.button_Annuler.Click += new System.EventHandler(this.button_Annuler_Click);
             // 
             // Ajouter_Familles_Form
             // 
