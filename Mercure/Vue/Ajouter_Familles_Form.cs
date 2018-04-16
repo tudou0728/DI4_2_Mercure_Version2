@@ -15,11 +15,21 @@ using System.Collections;
 using System.Data.SQLite;
 namespace Mercure.Vue
 {
+
+    /// <summary>
+    /// ClassName:Ajouter_Famille_Form
+    /// Author:Alafate ABULIMITI Yuanyuan LI
+    /// </summary>
+    /// <remarks>
+    /// Cette classe est pour ajouter une famille.
+    /// </remarks>
     public partial class Ajouter_Familles_Form : Form
     {
         List<Familles> ListFamille = new List<Familles>();
         FamillesDAO FamilleDAO = new FamillesDAO();
-
+        /// <summary>
+        /// Constructeur
+        /// </summary>
         public Ajouter_Familles_Form()
         {
             ListFamille.Clear();
@@ -27,12 +37,21 @@ namespace Mercure.Vue
             InitializeComponent();
         }
 
-
+        /// <summary>
+        /// Annuler l'opération
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Annuler_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// Ajouter une famille
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button_Ajouter_Click(object sender, EventArgs e)
         {
 

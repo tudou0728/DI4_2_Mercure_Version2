@@ -10,9 +10,22 @@ using Mercure.controleur;
 
 namespace Mercure.dao
 {
+    /// <summary>
+    /// ClasseName:FamillesDAO
+    /// Author: Alafate ABULIMITI Yuanyuan LI
+    /// </summary>
+    /// <remarks>
+    /// Cette classe est pour gerer la classe famille
+    /// </remarks>>
     class FamillesDAO
     {
         private SousFamillesDAO SousFamilleDAO  = new SousFamillesDAO();
+
+        /// <summary>
+        /// Ajouter une famille
+        /// </summary>
+        /// <param name="Ref_Famille"></param>
+        /// <param name="Nom"></param>
         public void Ajouter_Famille(int Ref_Famille, string Nom)
         {
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();
@@ -23,11 +36,15 @@ namespace Mercure.dao
             Commande.Parameters.AddWithValue("@Nom", Nom);
             Commande.ExecuteNonQuery();
         }
-        //这里我（A）改成了用名字删
+
+        /// <summary>
+        /// Supprimer une famille
+        /// </summary>
+        /// <param name="Nom"></param>
         public bool Supprimer_Famille(string Nom)
         {
             bool b = SousFamilleDAO.VerifierSousFamillesParFamille(Rechercher_Famille_Par_Nom(Nom)[0].Ref_Famille_Operation);
-            if(b){
+            if(!b){
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();
             string Sql = "delete from Familles where Nom = @Nom";
             SQLiteCommand Cmd = new SQLiteCommand(Sql, ConnectionBD);
@@ -40,6 +57,11 @@ namespace Mercure.dao
             }
         }
 
+        /// <summary>
+        /// Modifier une famille
+        /// </summary>
+        /// <param name="Ref_Famille"></param>
+        /// <param name="Nom"></param>
         public bool Modifier_Famille(int Ref_Famille, string Nom)
         {
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();
@@ -52,6 +74,10 @@ namespace Mercure.dao
             return true;
         }
 
+        /// <summary>
+        /// Rechercher une famille par Ref_Famille
+        /// </summary>
+        /// <param name="Ref_Famille"></param>
         public List<Familles> Rechercher_Familles(int Ref_Famille)
         {
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();
@@ -75,6 +101,10 @@ namespace Mercure.dao
             return List;
         }
 
+        /// <summary>
+        /// Rechercher une famille par nom
+        /// </summary>
+        /// <param name="Nom"></param>
         public List<Familles> Rechercher_Famille_Par_Nom(string Nom)
         {
             List<Familles> Resultats = new List<Familles>();
@@ -96,6 +126,9 @@ namespace Mercure.dao
             return Resultats;
         }
 
+        /// <summary>
+        /// Rechercher tous  les famille et  les stocker  dans une liste
+        /// </summary>
         public List<Familles> GetAll()
         {
             List<Familles> Resultats = new List<Familles>();
@@ -116,6 +149,9 @@ namespace Mercure.dao
             return Resultats;
         }
 
+        /// <summary>
+        /// Supprimer tous  les famille 
+        /// </summary>
         public int SupprimerTous()
         {
             SQLiteConnection ConnectionBD = GererBD.Get_Connection();
